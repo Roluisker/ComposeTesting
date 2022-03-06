@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk versions.compileSdk
+
+    defaultConfig {
+        applicationId  versions.applicationId
+        minSdk versions.minSdk
+        targetSdk versions.targetSdkVersion
+        versionCode versions.versionCode
+        versionName versions.versionName
+
+        testInstrumentationRunner versions.testInstrumentationRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.jvmTarget
+    }
+
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.1'
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    implementation deps.android.coreKtx
+    implementation deps.android.appcompat
+    implementation deps.android.materialDesing
+    implementation deps.android.constraintlayout
+
+    // Compose
+    implementation deps.android.activityCompose
+    implementation deps.android.composeMaterial
+    implementation deps.android.composeAnimation
+    implementation deps.android.composeUi
+    implementation deps.android.composeUiTooling
+    implementation deps.android.lifecycleViewModelCompose
+    implementation deps.android.composeRuntime
+    implementation deps.android.composeRuntimeLivedata
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.composeArchCoreTesting
+
+    debugImplementation deps.test.composeUiMainfest
+
+    androidTestImplementation deps.test.testExtJunit
+    androidTestImplementation deps.test.espresso
+    androidTestImplementation deps.test.composeUi
+
+    implementation("androidx.navigation:navigation-compose:2.4.1")
+
+}
